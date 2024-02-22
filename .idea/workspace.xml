@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1a92f995-3c74-4110-abbf-c83c676b4ae8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SuparFlo/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/assets/badlogic.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/core/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/core/src/MyGdxGame.gwt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/desktop/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/desktop/src/com/mygdx/game/DesktopLauncher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/src/com/mygdx/game/GdxDefinition.gwt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/src/com/mygdx/game/GdxDefinitionSuperdev.gwt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/src/com/mygdx/game/client/HtmlLauncher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/webapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/html/webapp/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SuparFlo/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2cQ8Tj5tp8J2zjucZrupit2yGYN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/patri/gdx/SuparFlo/SuparFlo/build.gradle",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\patri\gdx\SuparFlo" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1a92f995-3c74-4110-abbf-c83c676b4ae8" name="Changes" comment="" />
+      <created>1708032451517</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708032451517</updated>
+      <workItem from="1708032452684" duration="185000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
