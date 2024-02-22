@@ -6,11 +6,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
@@ -34,6 +38,10 @@ public class PlayScreen implements Screen {
     Spieler spieler;
     Texture img;
 
+    private TextureAtlas atlas;
+    private Animation<TextureRegion> animation;
+    float elapsedTime = 0.0f;
+
     public PlayScreen(MyGdxGame game){
         this.game = game;
         batch = new SpriteBatch();
@@ -50,6 +58,10 @@ public class PlayScreen implements Screen {
         ImageHelper ih = new ImageHelper();
         spieler = new Spieler(0,0,new Texture("Images/player.png"));
         //spieler = new Spieler(0,0,paul );
+
+        atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
+        Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Animations/player_Idle.png");
+        animation = new Animation<>(0.1f,frames, Animation.PlayMode.LOOP);
 
     }
 
@@ -88,30 +100,26 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
+        delta = Gdx.graphics.getDeltaTime();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        elapsedTime += delta;
+        TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
 
-        // Hintergrund rendern
         renderer.render();
-
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         spieler.draw(batch, 1);
+        batch.draw(currentFrame, 100, 100);
         batch.end();
 
-        // HUD rendern
+        // Rendere das HUD
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-
-        //renderer.render();
-
-            //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-            //hud.stage.draw();
-            //spieler.draw(batch, 1);
     }
+
 
 
     @Override
@@ -137,5 +145,6 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        atlas.dispose();
     }
 }
