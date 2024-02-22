@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
@@ -28,7 +27,7 @@ public class SettingsScreen implements Screen {
 
         Label title = new Label("Settings", MyGdxGame.gameSkin,"big-black");
         title.setAlignment(Align.center);
-        title.setY(Gdx.graphics.getHeight()*2/3);
+        title.setY(Gdx.graphics.getHeight()-100);
         title.setWidth(Gdx.graphics.getWidth());
         stage.addActor(title);
 
@@ -36,7 +35,7 @@ public class SettingsScreen implements Screen {
 
         TextButton musicButton = new TextButton("Musik " + (musicState ? "ON" : "OFF"), MyGdxGame.gameSkin);
         musicButton.setWidth(Gdx.graphics.getWidth()/2);
-        musicButton.setPosition(Gdx.graphics.getWidth()/2-musicButton.getWidth()/2,Gdx.graphics.getHeight()-300);
+        musicButton.setPosition(Gdx.graphics.getWidth()/2-musicButton.getWidth()/2,Gdx.graphics.getHeight()-360);
         musicButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -59,7 +58,7 @@ public class SettingsScreen implements Screen {
 
         TextButton backButton = new TextButton("Back",MyGdxGame.gameSkin);
         backButton.setWidth(Gdx.graphics.getWidth()/2);
-        backButton.setPosition(Gdx.graphics.getWidth()/2-backButton.getWidth()/2,Gdx.graphics.getHeight()/4-backButton.getHeight()/2);
+        backButton.setPosition(Gdx.graphics.getWidth()/2-backButton.getWidth()/2,Gdx.graphics.getHeight()-470);
         backButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -71,6 +70,22 @@ public class SettingsScreen implements Screen {
             }
         });
         stage.addActor(backButton);
+
+        Label volume = new Label("Volume", MyGdxGame.gameSkin,"big-black");
+        volume.setAlignment(Align.center);
+        volume.setY(Gdx.graphics.getHeight()-230);
+        volume.setWidth(Gdx.graphics.getWidth());
+        stage.addActor(volume);
+
+        Slider volumeButton = new Slider(1,10,1,false,MyGdxGame.gameSkin,"default-horizontal");
+        volumeButton.setWidth(Gdx.graphics.getWidth()/2);
+        volumeButton.setPosition(Gdx.graphics.getWidth()/2-volumeButton.getWidth()/2,Gdx.graphics.getHeight()-250);
+        volumeButton.addListener(new InputListener(){
+            
+
+
+        });
+        stage.addActor(volumeButton);
     }
     @Override
     public void show() {

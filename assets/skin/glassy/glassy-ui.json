@@ -111,6 +111,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: font-big
 		fontColor: black
 	}
+
+
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {

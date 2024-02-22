@@ -24,7 +24,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create() {
 
-			MyGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+			MyGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Nightcrawler.mp3"));
 			MyGdxGame.music.setLooping(true);
 			MyGdxGame.music.play();
 

@@ -51,7 +51,7 @@ public class PlayScreen implements Screen {
         hud = new Hud(game, game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Images/landscape.tmx");
+        map = mapLoader.load("Images/snow.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         //paul = new Texture("Images/paul.png");
@@ -60,9 +60,10 @@ public class PlayScreen implements Screen {
         //spieler = new Spieler(0,0,paul );
 
         atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
-        Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Animations/player_Idle.png");
+        Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Armature_Idle");
         animation = new Animation<>(0.1f,frames, Animation.PlayMode.LOOP);
 
+        System.out.println(frames.size);
     }
 
     @Override
@@ -111,8 +112,8 @@ public class PlayScreen implements Screen {
         renderer.render();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        spieler.draw(batch, 1);
-        batch.draw(currentFrame, 100, 100);
+        //spieler.draw(batch, 1);
+        batch.draw(currentFrame, 10, 0);
         batch.end();
 
         // Rendere das HUD
