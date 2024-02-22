@@ -30,7 +30,7 @@ public class MyGdxGame extends Game {
 
 		batch = new SpriteBatch();
 
-		gameSkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+		gameSkin = new Skin(Gdx.files.internal("skin/glassy/glassy-ui.json"));
 		setScreen(new TitleScreen(this));
 	}
 
