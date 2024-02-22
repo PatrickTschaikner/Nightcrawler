@@ -17,12 +17,11 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.Spieler;
 import com.mygdx.game.helper.ImageHelper;
 import com.mygdx.game.scenes.Hud;
-import com.mygdx.game.scenes.Settings;
 
 public class PlayScreen implements Screen {
 
     public SpriteBatch batch;
-    private Settings settings;
+    private SettingsScreen settings;
     private Stage stage;
     private MyGdxGame game;
     private OrthographicCamera camera;

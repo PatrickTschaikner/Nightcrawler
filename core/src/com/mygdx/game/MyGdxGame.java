@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.scenes.Hud;
-import com.mygdx.game.scenes.TitleScreen;
+import com.mygdx.game.screens.TitleScreen;
 
 public class MyGdxGame extends Game {
 	public static final int WORLD_WIDTH = 200;

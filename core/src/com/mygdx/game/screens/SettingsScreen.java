@@ -1,4 +1,4 @@
-package com.mygdx.game.scenes;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,14 +12,14 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
 
-public class Settings implements Screen {
+public class SettingsScreen implements Screen {
 
     private Stage stage;
     private MyGdxGame game;
     private String music = "";
     private boolean musicState;
 
-    public Settings(MyGdxGame aGame) {
+    public SettingsScreen(MyGdxGame aGame) {
         game = aGame;
         stage = new Stage(new ScreenViewport());
 
