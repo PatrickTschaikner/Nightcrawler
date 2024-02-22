@@ -1,31 +1,79 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.scenes.Hud;
+import com.mygdx.game.scenes.TitleScreen;
 
-public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+public class MyGdxGame extends Game {
+	public static final int WORLD_WIDTH = 200;
+	public static final int WORLD_HEIGHT = 104;
+	public static Music music;
+
+	static public Skin gameSkin;
+
+	public SpriteBatch batch;
+	private boolean toggleMusic;
+	private boolean gameState = true;
+	private Hud hud;
+
 	@Override
-	public void create () {
+	public void create() {
+
+			MyGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+			MyGdxGame.music.setLooping(true);
+			MyGdxGame.music.play();
+
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+
+		gameSkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+		setScreen(new TitleScreen(this));
 	}
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void render() {
+		pauseGame();
+		super.render();
 	}
-	
+
+	public void pauseGame() {
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			gameState = !gameState;
+		}
+	}
+
+	public void startMusic() {
+		music.play();
+	}
+
+	public void pauseMusic() {
+		music.pause();
+	}
+
+	public boolean isGameState() {
+		return gameState;
+	}
+
+	public void setGameState(boolean gameState) {
+		this.gameState = gameState;
+	}
+
+	public static Music getMusic() {
+		return music;
+	}
+
+	public static void setMusic(Music music) {
+		MyGdxGame.music = music;
+	}
+
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
-		img.dispose();
+		music.dispose();
 	}
+
 }

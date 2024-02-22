@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="99" height="7" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="landscape.tsx"/>
+ <layer id="1" name="Kachelebene 1" width="99" height="7">
+  <data encoding="base64" compression="zlib">
+   eJztylkiQlEAANCXeaoQUlEZK5QmIkNEktj/dpxN3L/7cf5OKkmSBRZZYpkVVlljnQ02ScUb9G6RJkOWbXbYJcce+xzEG/zmOaRAkRJHHFOmQpWTeIPfU84454JLatRpcMU1N/EGv01a3NKmQ5cefe64ZxBv8PvAI0OeeOaFV0a88c443uD3g08mfDHlmxk/zPnlL97g9x/e7WmU
+  </data>
+ </layer>
+</map>
