@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         //paul = new Texture("Images/paul.png");
         ImageHelper ih = new ImageHelper();
-        spieler = new Spieler(0,0,ih.changeImgSize(130,110,"Images/bowser.png"));
+        spieler = new Spieler(0,0,new Texture("Images/player.png"));
         //spieler = new Spieler(0,0,paul );
 
     }
