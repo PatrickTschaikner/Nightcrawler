@@ -81,9 +81,9 @@ public class SettingsScreen implements Screen {
         volumeButton.setWidth(Gdx.graphics.getWidth()/2);
         volumeButton.setPosition(Gdx.graphics.getWidth()/2-volumeButton.getWidth()/2,Gdx.graphics.getHeight()-250);
         volumeButton.addListener(new InputListener(){
+
+
             
-
-
         });
         stage.addActor(volumeButton);
     }
