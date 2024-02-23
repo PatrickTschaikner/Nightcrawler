@@ -63,9 +63,10 @@ public class Hud {
 
         //table.add(nameLabel).expandX().padTop(1);
         //table.add(levelLabel).expandX().padTop(1);
-        table.add(countdownLabel).left();
+        table.add(scoreLabel).padLeft(10).width(-110);
+        table.add(countdownLabel).padLeft(10).width(-150);
         //table.row();
-        table.add(scoreLabel);
+
 
 
         stage.addActor(table);
