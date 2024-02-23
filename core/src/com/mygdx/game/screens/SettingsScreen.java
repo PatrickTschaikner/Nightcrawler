@@ -82,6 +82,7 @@ public class SettingsScreen implements Screen {
         volume.setWidth(Gdx.graphics.getWidth());
         stage.addActor(volume);
 
+        //Slider
         volumeSlider = new Slider(0f, 1f, 0.1f, false, MyGdxGame.gameSkin, "default-horizontal");
         volumeSlider.setValue(aGame.music.getVolume()); // Setze den aktuellen Lautstärkewert
         volumeSlider.setWidth(Gdx.graphics.getWidth() / 2);
