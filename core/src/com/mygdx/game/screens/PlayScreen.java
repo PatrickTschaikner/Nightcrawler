@@ -51,9 +51,12 @@ public class PlayScreen implements Screen {
         hud = new Hud(game, game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Images/snow.tmx");
+        map = mapLoader.load("Images/landscape.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+
+
+
         //paul = new Texture("Images/paul.png");
         ImageHelper ih = new ImageHelper();
         spieler = new Spieler(0,0,new Texture("Images/player.png"));
@@ -111,6 +114,7 @@ public class PlayScreen implements Screen {
 
         renderer.render();
         batch.setProjectionMatrix(camera.combined);
+
         batch.begin();
         //spieler.draw(batch, 1);
         batch.draw(currentFrame, 10, 0);
