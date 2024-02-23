@@ -90,7 +90,7 @@ public class SettingsScreen implements Screen {
         volumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float volume = volumeSlider.getValue();
+                float volume = volumeSlider.getValue() * 1.5f;
                 // Setze die Lautstärke der Musik entsprechend dem Slider-Wert
                 aGame.music.setVolume(volume);
             }
