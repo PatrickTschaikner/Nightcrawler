@@ -112,15 +112,14 @@ public class PlayScreen implements Screen {
         elapsedTime += delta;
         TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
 
-        renderer.render();
-        batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
         //spieler.draw(batch, 1);
         batch.draw(currentFrame, 10, 0);
         batch.end();
 
         // Rendere das HUD
+        //batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        renderer.render();
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
