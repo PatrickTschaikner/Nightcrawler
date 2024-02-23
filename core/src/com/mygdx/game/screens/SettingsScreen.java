@@ -3,13 +3,17 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
+
+import javax.swing.event.ChangeEvent;
 
 public class SettingsScreen implements Screen {
 
@@ -19,6 +23,7 @@ public class SettingsScreen implements Screen {
     private MyGdxGame game;
     private String music = "";
     private boolean musicState;
+    private Slider volumeSlider;
 
     public SettingsScreen(MyGdxGame aGame) {
         game = aGame;
@@ -77,15 +82,20 @@ public class SettingsScreen implements Screen {
         volume.setWidth(Gdx.graphics.getWidth());
         stage.addActor(volume);
 
-        Slider volumeButton = new Slider(1,10,1,false,MyGdxGame.gameSkin,"default-horizontal");
-        volumeButton.setWidth(Gdx.graphics.getWidth()/2);
-        volumeButton.setPosition(Gdx.graphics.getWidth()/2-volumeButton.getWidth()/2,Gdx.graphics.getHeight()-250);
-        volumeButton.addListener(new InputListener(){
-
-
-
+        //Slider
+        volumeSlider = new Slider(0f, 1f, 0.1f, false, MyGdxGame.gameSkin, "default-horizontal");
+        volumeSlider.setValue(aGame.music.getVolume()); // Setze den aktuellen Lautstärkewert
+        volumeSlider.setWidth(Gdx.graphics.getWidth() / 2);
+        volumeSlider.setPosition(Gdx.graphics.getWidth() / 2 - volumeSlider.getWidth() / 2, Gdx.graphics.getHeight() - 250);
+        volumeSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float volume = volumeSlider.getValue();
+                // Setze die Lautstärke der Musik entsprechend dem Slider-Wert
+                aGame.music.setVolume(volume);
+            }
         });
-        stage.addActor(volumeButton);
+        stage.addActor(volumeSlider);
     }
     @Override
     public void show() {
