@@ -50,7 +50,7 @@ public class Hud {
 
         countdownLabel = new Label(String.format("%03d", worldTimer), labelStyle);
         countdownLabel.setFontScale(0.2f);
-        scoreLabel = new Label(String.format("%06d", score), labelStyle);
+        scoreLabel = new Label(String.format("%04d", score), labelStyle);
         scoreLabel.setFontScale(0.2f);
         /*timeLabel = new Label("TIME", labelStyle);
         timeLabel.setFontScale(0.2f);
@@ -63,9 +63,9 @@ public class Hud {
 
         //table.add(nameLabel).expandX().padTop(1);
         //table.add(levelLabel).expandX().padTop(1);
-        table.add(countdownLabel).expandX().padTop(1);
-        table.row();
-        table.add(scoreLabel).expandX().padTop(1);
+        table.add(countdownLabel).left();
+        //table.row();
+        table.add(scoreLabel);
 
 
         stage.addActor(table);
