@@ -83,7 +83,7 @@ public class SettingsScreen implements Screen {
         volumeButton.addListener(new InputListener(){
 
 
-            
+
         });
         stage.addActor(volumeButton);
     }
