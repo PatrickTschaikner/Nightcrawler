@@ -38,8 +38,8 @@ public class Hud {
         stage = new Stage(viewPort, sb);
 
         Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        //table.top();
+        //table.setFillParent(true);
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts/Font.fnt"));
 
