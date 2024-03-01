@@ -22,6 +22,8 @@ import com.mygdx.game.actors.Spieler;
 import com.mygdx.game.helper.ImageHelper;
 import com.mygdx.game.scenes.Hud;
 
+import java.awt.*;
+
 public class PlayScreen implements Screen {
 
     public SpriteBatch batch;
@@ -115,6 +117,7 @@ public class PlayScreen implements Screen {
         batch.begin();
         //spieler.draw(batch, 1);
         batch.draw(currentFrame, 10, 0);
+        spieler.draw(batch,1);
         batch.end();
 
         // Rendere das HUD
