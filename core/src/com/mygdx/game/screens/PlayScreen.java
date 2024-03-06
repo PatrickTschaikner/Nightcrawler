@@ -5,72 +5,48 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actors.Spieler;
-import com.mygdx.game.helper.ImageHelper;
 import com.mygdx.game.scenes.Hud;
 
 public class PlayScreen implements Screen {
 
-    public SpriteBatch batch;
-    private SettingsScreen settings;
-    private Stage stage;
+    private SpriteBatch batch;
     private MyGdxGame game;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    private FitViewport viewport;
     private Hud hud;
-
-    private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    Spieler spieler;
-    Texture img;
-
-    private TextureAtlas atlas;
-    private Animation<TextureRegion> animation;
-    float elapsedTime = 0.0f;
+    private Stage stage;
+    private Spieler spieler;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
-
         batch = new SpriteBatch();
-        //erstellt Kamera zum Folgen von Mario
         camera = new OrthographicCamera();
-        viewport = new FitViewport(MyGdxGame.WORLD_WIDTH,MyGdxGame.WORLD_HEIGHT,camera);
+        viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         hud = new Hud(game, game.batch);
 
-
-
-        mapLoader = new TmxMapLoader();
+        // Load Tiled map
+        TmxMapLoader mapLoader = new TmxMapLoader();
         map = mapLoader.load("Images/landscape.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-
-
-        ImageHelper ih = new ImageHelper();
-        spieler = new Spieler(0,0,new TextureAtlas("Animations/player_Idle.atlas"));
-
         stage = new Stage(viewport);
-        //stage.addActor();
+
+        // Create Spieler actor and add to stage
+        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"));
         stage.addActor(spieler);
-
-        //atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
-        //Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Armature_Idle");
-        //animation = new Animation<>(0.1f,frames, Animation.PlayMode.LOOP);
-
-        //System.out.println(frames.size);
     }
 
     @Override
@@ -94,7 +70,6 @@ public class PlayScreen implements Screen {
         if(spieler.getX() < 824) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) spieler.move(0);
         }
-
     }
 
     public void update(float dt) {
@@ -105,63 +80,45 @@ public class PlayScreen implements Screen {
         }
     }
 
-
     @Override
     public void render(float delta) {
-        delta = Gdx.graphics.getDeltaTime();
+        update(delta);
 
+        // Clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // Render the Tiled map
+        renderer.render();
+
+        // Render the stage (actors)
         stage.act();
         stage.draw();
 
-        elapsedTime += delta;
-        //TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
-
-        ////batch.begin();
-        //spieler.draw(batch, 1);
-        //batch.draw(currentFrame, 10, 0);
-        //batch.end();
-
-        batch.begin();
-        spieler.draw(batch,1);
-        batch.end();
-
-        spieler.act(delta);
-
-        // Rendere das HUD
-        //batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        renderer.render();
+        // Render HUD
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
 
-
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height);
+        viewport.update(width, height);
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {
         batch.dispose();
-        atlas.dispose();
         stage.dispose();
+        map.dispose();
+        renderer.dispose();
     }
 }

@@ -55,19 +55,29 @@ public class PlayScreen2 implements Screen {
     }
 
     public void handleInput(float dt){
+
         if(Gdx.input.isKeyPressed(Input.Keys.D))
             camera.position.x += 100 * dt;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && camera.position.x > MyGdxGame.WORLD_WIDTH / 2 + 1)
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && camera.position.x > MyGdxGame.WORLD_WIDTH / 2 +1)
             camera.position.x += 100 * -dt;
 
-        // Handle input for Spieler
+        float delta = Gdx.graphics.getDeltaTime();
+        //update
+        if(spieler.getX() > 0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) spieler.move(1);
+        }
+        if(spieler.getX() < 824) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) spieler.move(0);
+        }
     }
 
     public void update(float dt) {
-        handleInput(dt);
-        camera.update();
-        renderer.setView(camera);
+        if (game.isGameState()) {
+            handleInput(dt);
+            camera.update();
+            renderer.setView(camera);
+        }
     }
 
     @Override
