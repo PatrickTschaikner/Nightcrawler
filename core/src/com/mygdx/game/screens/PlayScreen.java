@@ -44,11 +44,14 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
+
         batch = new SpriteBatch();
         //erstellt Kamera zum Folgen von Mario
         camera = new OrthographicCamera();
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH,MyGdxGame.WORLD_HEIGHT,camera);
         hud = new Hud(game, game.batch);
+
+
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Images/landscape.tmx");
@@ -59,6 +62,9 @@ public class PlayScreen implements Screen {
         ImageHelper ih = new ImageHelper();
         spieler = new Spieler(0,0,new TextureAtlas("Animations/player_Idle.atlas"));
 
+        stage = new Stage(viewport);
+        //stage.addActor();
+        stage.addActor(spieler);
 
         //atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
         //Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Armature_Idle");
@@ -107,6 +113,9 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        stage.act();
+        stage.draw();
+
         elapsedTime += delta;
         //TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
 
@@ -153,5 +162,6 @@ public class PlayScreen implements Screen {
     public void dispose() {
         batch.dispose();
         atlas.dispose();
+        stage.dispose();
     }
 }
