@@ -4,8 +4,3 @@ sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-core"
-
-dependencies {
-    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    // Andere Abhängigkeiten deines Projekts...
-}
