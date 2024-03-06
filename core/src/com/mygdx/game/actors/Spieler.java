@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.Random;
 
@@ -21,9 +22,14 @@ public class Spieler extends SpielObjekt{
     private Animation<TextureRegion> animation;
     private float stateTime;
 
-    public Spieler(int x, int y, TextureAtlas atlas) {
+    public World world;
+    public Body b2body;
+    public Spieler(int x, int y, TextureAtlas atlas, World world) {
         super(x, y, atlas.findRegion("Armature_Idle").getTexture());
         generateAnimation(atlas);
+
+        this.world = world;
+        defineMario();
 
         boundary = new Rectangle();
         this.setBoundary();
@@ -32,6 +38,19 @@ public class Spieler extends SpielObjekt{
         setWidth(50);
     }
 
+    public void defineMario(){
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(32, 32);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(5);
+
+        fdef.shape = shape;
+        b2body.createFixture(fdef);
+    }
     private void generateAnimation(TextureAtlas atlas) {
         animation = new Animation<>(0.1f, atlas.findRegions("Armature_Idle"), Animation.PlayMode.LOOP);
         stateTime = 0f;
