@@ -54,7 +54,7 @@ public class PlayScreen implements Screen {
         stage = new Stage(viewport);
 
 
-        /*world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
@@ -72,7 +72,7 @@ public class PlayScreen implements Screen {
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
-        }*/
+        }
 
         // Create Spieler actor and add to stage
         spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"));
@@ -122,7 +122,7 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         // Render Box2D
-        //b2dr.render(world, camera.combined);
+        b2dr.render(world, camera.combined);
 
         // Render the stage (actors)
         stage.act();
