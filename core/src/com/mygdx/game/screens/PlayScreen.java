@@ -22,8 +22,6 @@ import com.mygdx.game.actors.Spieler;
 import com.mygdx.game.helper.ImageHelper;
 import com.mygdx.game.scenes.Hud;
 
-import java.awt.*;
-
 public class PlayScreen implements Screen {
 
     public SpriteBatch batch;
@@ -46,11 +44,14 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
+
         batch = new SpriteBatch();
         //erstellt Kamera zum Folgen von Mario
         camera = new OrthographicCamera();
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH,MyGdxGame.WORLD_HEIGHT,camera);
         hud = new Hud(game, game.batch);
+
+
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Images/landscape.tmx");
@@ -58,17 +59,18 @@ public class PlayScreen implements Screen {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
 
 
-
-        //paul = new Texture("Images/paul.png");
         ImageHelper ih = new ImageHelper();
-        spieler = new Spieler(0,0,new Texture("Images/player.png"));
-        //spieler = new Spieler(0,0,paul );
+        spieler = new Spieler(0,0,new TextureAtlas("Animations/player_Idle.atlas"));
 
-        atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
-        Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Armature_Idle");
-        animation = new Animation<>(0.1f,frames, Animation.PlayMode.LOOP);
+        stage = new Stage(viewport);
+        //stage.addActor();
+        stage.addActor(spieler);
 
-        System.out.println(frames.size);
+        //atlas = new TextureAtlas(Gdx.files.internal("Animations/player_Idle.atlas"));
+        //Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("Armature_Idle");
+        //animation = new Animation<>(0.1f,frames, Animation.PlayMode.LOOP);
+
+        //System.out.println(frames.size);
     }
 
     @Override
@@ -111,14 +113,22 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        stage.act();
+        stage.draw();
+
         elapsedTime += delta;
-        TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
+        //TextureRegion currentFrame = animation.getKeyFrame(elapsedTime, true);
+
+        ////batch.begin();
+        //spieler.draw(batch, 1);
+        //batch.draw(currentFrame, 10, 0);
+        //batch.end();
 
         batch.begin();
-        //spieler.draw(batch, 1);
-        batch.draw(currentFrame, 10, 0);
         spieler.draw(batch,1);
         batch.end();
+
+        spieler.act(delta);
 
         // Rendere das HUD
         //batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -152,5 +162,6 @@ public class PlayScreen implements Screen {
     public void dispose() {
         batch.dispose();
         atlas.dispose();
+        stage.dispose();
     }
 }
