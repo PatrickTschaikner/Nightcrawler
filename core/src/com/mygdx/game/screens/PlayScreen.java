@@ -75,7 +75,7 @@ public class PlayScreen implements Screen {
         }
 
         // Create Spieler actor and add to stage
-        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"));
+        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"), world);
         stage.addActor(spieler);
     }
 
@@ -105,6 +105,8 @@ public class PlayScreen implements Screen {
     public void update(float dt) {
         if (game.isGameState()) {
             handleInput(dt);
+
+            world.step(1/60f, 6, 2);
             camera.update();
             renderer.setView(camera);
         }
