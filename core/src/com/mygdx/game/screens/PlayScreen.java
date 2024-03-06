@@ -7,9 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -29,6 +34,10 @@ public class PlayScreen implements Screen {
     private Stage stage;
     private Spieler spieler;
 
+
+    private World world;
+    private Box2DDebugRenderer b2dr;
+
     public PlayScreen(MyGdxGame game){
         this.game = game;
         batch = new SpriteBatch();
@@ -38,11 +47,32 @@ public class PlayScreen implements Screen {
 
         // Load Tiled map
         TmxMapLoader mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Images/landscape.tmx");
+        map = mapLoader.load("Images/level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         stage = new Stage(viewport);
+
+
+        /*world = new World(new Vector2(0, 0), true);
+        b2dr = new Box2DDebugRenderer();
+
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() +  rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }*/
 
         // Create Spieler actor and add to stage
         spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"));
@@ -90,6 +120,9 @@ public class PlayScreen implements Screen {
 
         // Render the Tiled map
         renderer.render();
+
+        // Render Box2D
+        //b2dr.render(world, camera.combined);
 
         // Render the stage (actors)
         stage.act();
