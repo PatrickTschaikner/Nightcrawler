@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="240" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="Background.tsx"/>
+ <tileset firstgid="721" source="industrie.tsx"/>
+ <layer id="1" name="Kachelebene 1" width="240" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt28O2JVgARMF6Zdu2bdu2bdu2bdu2batt2zai/6Dv/Axivse5VkZFixYtOjGISSxiE4e4xCM+CUhIIhKThKQkIzkpSEkqUpOGtKQjPRnISCYyk4WsZCM7OchJVOgJPaHnf/fkIjd5yEs+8lOAghSiMEUoSjGKU4KSlKI0ZShLOcpTgYpUojJVqEo1qlODmtSiNnWoG3pCT+iJqKce9WlAQxrRmCY0pRnNaUFLWtGaNrSlHe3pQEc60ZkudKUb3elBT3rRmz70pR/9GcDA0BN6Qk9EPYMYzBCGMozhjGAkoxjNGMYyjvFMYCKTmMwUpjKN6cxgJrOYzRzmMo/5LGAhi1jMEpaGntATeiLqWcZyVrCSVaxmDWtZx3o2sJFNbGYLW9nGdnawk13sZg972cd+DnCQQxzmCEc5xnFOcDL0hJ7QE1HPKU5zhrOc4zwXuMglLnOFq1zjOje4yS1uc4e73OM+D3jIIx7zhKc84zkv8CIv8TKv8GroCT2hJ6Ke13idN3iTt3ibd3iX93ifD/iQj/iYT/iUz/icL/iSr/iab/iW7/ieH/iRn/iZX/iV3/idP/gz9ISe0BNRz1/8zT/8N3ZHEZ0YxCQWsYlDXOIRnwQkJBGJSUJSkpGcFKQkFalJQ1rSkZ4MZCQTmclC1qjQE3pCTyQ92chODnKSi9zkIS/5yE8BClKIwhShKMUoTglKUorSlKEs5ShPBSpSicpUoSrVqE4Naoae0BN6IuqpRW3qUJd61KcBDWlEY5rQlGY0pwUtaUVr2tCWdrSnAx3pRGe60JVudKcHPelFb/rQN/SEntATUU8/+jOAgQxiMEMYyjCGM4KRjGI0YxjLOMYzgYlMYjJTmMo0pjODmcxiNnOYyzzms4CFoSf0hJ6IehaxmCUsZRnLWcFKVrGaNaxlHevZwEY2sZktbGUb29nBTnaxmz3sZR/7OcBBDnGYIxwNPaEn9ETUc4zjnOAkpzjNGc5yjvNc4CKXuMwVrnKN69zgJre4zR3uco/7POAhj3jME57yjOe8wIuhJ/SEnoh6XuJlXuFVXuN13uBN3uJt3uFd3uN9PuBDPuJjPuFTPuNzvuBLvuJrvuFbvuN7fuBHfuJnfuHX0BN6Qk9EPb/xO3/wJ3/xN//w33EiiujEICaxiE0c4hKP+CQgIYlITBKSkozkpCAlqUhNGtKSjvRkIGP00BN6Qk8kPZnITBayko3s5CAnuchNHvKSj/wUoCCFKEwRilKM4pSgJKUoTRnKUo7yVKAilahMFaqGntATeiLqqUZ1alCTWtSmDnWpR30a0JBGNKYJTWlGc1rQkla0pg1taUd7OtCRTnSmC13pRnd60DP0hJ7QE1FPL3rTh770oz8DGMggBjOEoQxjOCMYyShGM4axjGM8E5jIJCYzhalMYzozmMksZjOHuaEn9ISeiHrmMZ8FLGQRi1nCUpaxnBWsZBWrWcNa1rGeDWxkE5vZwla2sZ0d7GQXu9nDXvaxnwMcDD2hJ/RE1HOIwxzhKMc4zglOcorTnOEs5zjPBS5yictc4SrXuM4NbnKL29zhLve4zwMe8ojHPOFp6Ak9oSeinn8BUFfkIw==
+  </data>
+ </layer>
+ <layer id="2" name="Kachelebene 2" width="240" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt2LEKwjAUQNFgPkFXZ3HpKP7/PziqKG4VR3F0eSBIJakBRTxnuUMaOpX3aEoAAAAAAAAAAAB82mlSVwAAoM0xdutpLvccz16i+xe9vbGvL/P4OwDwTw6F+Vo6H9L7xwY/Yx778sreDGkb8+ta2UXDd7Mu3C2dD9mYvwB8wdj5+dxddJbr2uW296nqY4+9A0Cag8c=
+  </data>
+ </layer>
+</map>
