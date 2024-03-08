@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     public PlayScreen(MyGdxGame game){
-        this.game = game;
+        this.game = game
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
