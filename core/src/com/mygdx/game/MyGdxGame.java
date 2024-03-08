@@ -12,6 +12,7 @@ import com.mygdx.game.screens.TitleScreen;
 public class MyGdxGame extends Game {
 	public static final int WORLD_WIDTH = 200;
 	public static final int WORLD_HEIGHT = 104;
+	public static final float PPM = 1;
 	public static Music music;
 
 	static public Skin gameSkin;
