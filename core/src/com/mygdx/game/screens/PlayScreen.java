@@ -37,7 +37,7 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
-    
+
     public PlayScreen(MyGdxGame game){
         this.game = game;
         batch = new SpriteBatch();
