@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     public PlayScreen(MyGdxGame game){
-        this.game = game
+        this.game = game;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
@@ -47,7 +47,7 @@ public class PlayScreen implements Screen {
 
         // Load Tiled map
         TmxMapLoader mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Images/level1.tmx");
+        map = mapLoader.load("Tilemap/map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / game.PPM);
 
         camera.position.set(viewport.getWorldWidth() / game.PPM, viewport.getWorldHeight() / game.PPM, 0);
