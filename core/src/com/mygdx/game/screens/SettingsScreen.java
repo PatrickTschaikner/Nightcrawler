@@ -36,7 +36,7 @@ public class SettingsScreen implements Screen {
         title.setWidth(Gdx.graphics.getWidth());
         stage.addActor(title);
 
-        musicState = aGame.music.isPlaying();
+        musicState = aGame.music2.isPlaying();
 
         TextButton musicButton = new TextButton("Musik " + (musicState ? "ON" : "OFF"), MyGdxGame.gameSkin);
         musicButton.setWidth(Gdx.graphics.getWidth()/2);
@@ -47,10 +47,10 @@ public class SettingsScreen implements Screen {
                 musicState = !musicState;
                 musicButton.setText("Musik " + (musicState ? "ON" : "OFF"));
 
-                if(aGame.music.isPlaying()) {
-                    aGame.pauseMusic();
+                if(aGame.music2.isPlaying()) {
+                    aGame.pauseMusic2();
                 } else{
-                    aGame.startMusic();
+                    aGame.startMusic2();
                 }
             }
             @Override
@@ -84,7 +84,7 @@ public class SettingsScreen implements Screen {
 
         //Slider
         volumeSlider = new Slider(0f, 1f, 0.1f, false, MyGdxGame.gameSkin, "default-horizontal");
-        volumeSlider.setValue(aGame.music.getVolume()); // Setze den aktuellen Lautstärkewert
+        volumeSlider.setValue(aGame.music.getVolume()); // Setze den aktuellen Lautstärkewer
         volumeSlider.setWidth(Gdx.graphics.getWidth() / 2);
         volumeSlider.setPosition(Gdx.graphics.getWidth() / 2 - volumeSlider.getWidth() / 2, Gdx.graphics.getHeight() - 250);
         volumeSlider.addListener(new ChangeListener() {
@@ -93,6 +93,7 @@ public class SettingsScreen implements Screen {
                 float volume = volumeSlider.getValue() * 1.5f;
                 // Setze die Lautstärke der Musik entsprechend dem Slider-Wert
                 aGame.music.setVolume(volume);
+                aGame.music2.setVolume(volume);
             }
         });
         stage.addActor(volumeSlider);

@@ -88,6 +88,13 @@ public class PlayScreen implements Screen {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             spieler.b2body.applyLinearImpulse(new Vector2(0, 10f), spieler.b2body.getWorldCenter(), true);
+        
+        if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
+            spieler.b2body.applyLinearImpulse(new Vector2(0.1f, 0), spieler.b2body.getWorldCenter(), true);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x <= -2)
+            spieler.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), spieler.b2body.getWorldCenter(), true);
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.D))
             camera.position.x += 100 * dt;
@@ -98,10 +105,10 @@ public class PlayScreen implements Screen {
         float delta = Gdx.graphics.getDeltaTime();
         //update
         if(spieler.getX() > 0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) spieler.move(1);
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) spieler.move(1);
         }
-        if(spieler.getX() < 824) {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) spieler.move(0);
+        if(spieler.getX() < 3000) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) spieler.move(0);
         }
     }
 

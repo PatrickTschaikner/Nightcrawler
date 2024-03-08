@@ -14,6 +14,7 @@ public class MyGdxGame extends Game {
 	public static final int WORLD_HEIGHT = 104;
 	public static final float PPM = 1;
 	public static Music music;
+	public static Music music2;
 
 	static public Skin gameSkin;
 
@@ -27,6 +28,11 @@ public class MyGdxGame extends Game {
 			MyGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Nightcrawler.mp3"));
 			MyGdxGame.music.setLooping(true);
 			MyGdxGame.music.play();
+			MyGdxGame.music.pause();
+
+			MyGdxGame.music2 = Gdx.audio.newMusic(Gdx.files.internal("sounds/Butterfly.mp3"));
+			MyGdxGame.music2.setLooping(true);
+			MyGdxGame.music2.play();
 
 		batch = new SpriteBatch();
 
@@ -52,6 +58,14 @@ public class MyGdxGame extends Game {
 
 	public void pauseMusic() {
 		music.pause();
+	}
+
+	public void startMusic2() {
+		music2.play();
+	}
+
+	public void pauseMusic2() {
+		music2.pause();
 	}
 
 	public boolean isGameState() {

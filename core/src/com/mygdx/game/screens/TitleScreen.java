@@ -36,6 +36,8 @@ public class TitleScreen implements Screen {
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.pauseMusic2();
+                game.startMusic();
                 game.setScreen(new PlayScreen(game));
             }
             @Override
