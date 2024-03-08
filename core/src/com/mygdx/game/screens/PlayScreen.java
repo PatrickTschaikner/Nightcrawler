@@ -48,13 +48,13 @@ public class PlayScreen implements Screen {
         // Load Tiled map
         TmxMapLoader mapLoader = new TmxMapLoader();
         map = mapLoader.load("Images/level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / game.PPM);
 
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.position.set(viewport.getWorldWidth() / game.PPM, viewport.getWorldHeight() / game.PPM, 0);
         stage = new Stage(viewport);
 
 
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
@@ -65,17 +65,17 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() +  rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+            bdef.position.set((rect.getX() +  rect.getWidth() / 2) / game.PPM, (rect.getY() + rect.getHeight() / 2) / game.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            shape.setAsBox(rect.getWidth() / 2 / game.PPM, rect.getHeight() / 2 / game.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
 
         // Create Spieler actor and add to stage
-        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"), world);
+        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"), world, game);
         stage.addActor(spieler);
     }
 
@@ -85,6 +85,9 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt){
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            spieler.b2body.applyLinearImpulse(new Vector2(0, 10f), spieler.b2body.getWorldCenter(), true);
 
         if(Gdx.input.isKeyPressed(Input.Keys.D))
             camera.position.x += 100 * dt;
