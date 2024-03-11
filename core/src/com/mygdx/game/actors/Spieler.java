@@ -30,7 +30,7 @@ public class Spieler extends SpielObjekt{
         generateAnimation(atlas);
 
         this.world = world;
-        defineMario();
+        defineSpieler();
 
         boundary = new Rectangle();
         this.setBoundary();
@@ -39,7 +39,7 @@ public class Spieler extends SpielObjekt{
         setWidth(50);
     }
 
-    public void defineMario(){
+    public void defineSpieler(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(32 / game.PPM, 32 / game.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -47,7 +47,7 @@ public class Spieler extends SpielObjekt{
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(5 / game.PPM);
+        shape.setRadius(6 / game.PPM);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
@@ -73,22 +73,8 @@ public class Spieler extends SpielObjekt{
 
     public void update(float delta){
         stateTime += delta;
-    }
-
-    public void move(int direction) {
-
-        if(direction != this.direction){
-            speed = 2;
-        }
-        speed += acceleration;
-        if(direction == 1) {
-            this.setX(this.getX()-speed);
-        } else{
-            this.setX(this.getX()+speed);
-        }
-        //muss Grafikposition neu berechnen !!
-        this.setBoundary();
-        this.direction = direction;
+        //setOrigin(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        setPosition(b2body.getPosition().x - getWidth() / 2 + 10, b2body.getPosition().y - getHeight() / 2 + 19);
     }
 
     public void act(float delta){

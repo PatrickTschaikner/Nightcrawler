@@ -8,12 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 
-public class Hud {
+public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewPort;
 
@@ -95,6 +96,11 @@ public class Hud {
 
     public void setWorldTimer(Integer worldTimer) {
         this.worldTimer = worldTimer;
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }
 

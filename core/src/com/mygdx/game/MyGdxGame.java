@@ -27,11 +27,13 @@ public class MyGdxGame extends Game {
 	public void create() {
 			MyGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Nightcrawler.mp3"));
 			MyGdxGame.music.setLooping(true);
+			MyGdxGame.music.setVolume(0f);
 			MyGdxGame.music.play();
 			MyGdxGame.music.pause();
 
 			MyGdxGame.music2 = Gdx.audio.newMusic(Gdx.files.internal("sounds/Butterfly.mp3"));
 			MyGdxGame.music2.setLooping(true);
+			MyGdxGame.music2.setVolume(0f);
 			MyGdxGame.music2.play();
 
 		batch = new SpriteBatch();
