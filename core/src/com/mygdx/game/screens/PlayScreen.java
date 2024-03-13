@@ -61,7 +61,7 @@ public class PlayScreen implements Screen {
         new B2World(world, map, game);
 
         // Create Spieler actor and add to stage
-        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"), world, game);
+        spieler = new Spieler(0, 0, new TextureAtlas("Animations/unnamed.atlas"), world, game);
         stage.addActor(spieler);
     }
 

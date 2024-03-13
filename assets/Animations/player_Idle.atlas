@@ -1,6 +1,6 @@
 player_Idle.png
 size:64,256
-repeat:none
+repeat:none 
 Armature_Idle
 index:1
 bounds:2,182,26,34
