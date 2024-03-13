@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
 
         // Load Tiled map
         TmxMapLoader mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Tilemap/map.tmx");
+        map = mapLoader.load("Tilemap/stone island.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / game.PPM);
 
         camera.position.set(viewport.getWorldWidth() / game.PPM, viewport.getWorldHeight() / game.PPM, 0);
