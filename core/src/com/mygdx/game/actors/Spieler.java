@@ -25,6 +25,8 @@ public class Spieler extends SpielObjekt{
     private MyGdxGame game;
     public World world;
     public Body b2body;
+    public enum State {FALLING, JUMPING, STANDING, RUNNING};
+
     public Spieler(int x, int y, TextureAtlas atlas, World world, MyGdxGame game) {
         super(x, y, atlas.findRegion("Armature_Idle").getTexture());
         generateAnimation(atlas);
