@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Tools.B2World;
 import com.mygdx.game.actors.Spieler;
 import com.mygdx.game.scenes.Hud;
 
@@ -57,25 +58,10 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() +  rect.getWidth() / 2) / game.PPM, (rect.getY() + rect.getHeight() / 2) / game.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / game.PPM, rect.getHeight() / 2 / game.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
+        new B2World(world, map, game);
 
         // Create Spieler actor and add to stage
-        spieler = new Spieler(0, 0, new TextureAtlas("Animations/player_Idle.atlas"), world, game);
+        spieler = new Spieler(0, 0, new TextureAtlas("Animations/unnamed.atlas"), world, game);
         stage.addActor(spieler);
     }
 
@@ -90,26 +76,28 @@ public class PlayScreen implements Screen {
             spieler.b2body.applyLinearImpulse(new Vector2(0, 10f), spieler.b2body.getWorldCenter(), true);
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
-            spieler.b2body.applyLinearImpulse(new Vector2(0.1f, 0), spieler.b2body.getWorldCenter(), true);
+            spieler.b2body.applyForceToCenter(1000, 0, true);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x <= -2)
-            spieler.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), spieler.b2body.getWorldCenter(), true);
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2)
+            spieler.b2body.applyForceToCenter(-1000, 0, true);
 
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D))
+        /*if(Gdx.input.isKeyPressed(Input.Keys.D))
             camera.position.x += 100 * dt;
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) && camera.position.x > MyGdxGame.WORLD_WIDTH / 2 +1)
             camera.position.x += 100 * -dt;
+        */
 
         float delta = Gdx.graphics.getDeltaTime();
+
         //update
-        if(spieler.getX() > 0) {
+        /*if(spieler.getX() > 0) {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) spieler.move(1);
         }
         if(spieler.getX() < 3000) {
             if (Gdx.input.isKeyPressed(Input.Keys.D)) spieler.move(0);
-        }
+        }*/
     }
 
     public void update(float dt) {
@@ -117,6 +105,10 @@ public class PlayScreen implements Screen {
             handleInput(dt);
 
             world.step(1/60f, 6, 2);
+
+            spieler.update(dt);
+
+            camera.position.x = spieler.b2body.getPosition().x;
             camera.update();
             renderer.setView(camera);
         }
@@ -165,5 +157,8 @@ public class PlayScreen implements Screen {
         stage.dispose();
         map.dispose();
         renderer.dispose();
+        world.dispose();
+        b2dr.dispose();
+        hud.dispose();
     }
 }
