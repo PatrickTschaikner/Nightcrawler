@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
         stage = new Stage(viewport);
 
 
-        world = new World(new Vector2(0, -120), true);
+        world = new World(new Vector2(0, -150), true);
         b2dr = new Box2DDebugRenderer();
 
         new B2World(world, map, game);

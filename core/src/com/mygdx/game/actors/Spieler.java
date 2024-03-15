@@ -56,12 +56,21 @@ public class Spieler extends SpielObjekt{
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(6 / game.PPM);
+        PolygonShape shape = new PolygonShape();
+
+        // Define the vertices of the polygon (in meters)
+        float[] vertices = new float[] {
+                -6 / game.PPM, -8 / game.PPM,
+                -6 / game.PPM, 8 / game.PPM,
+                6 / game.PPM, 8 / game.PPM,
+                6 / game.PPM, -8 / game.PPM
+        };
+        shape.set(vertices);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
     }
+
     private void generateAnimation(TextureAtlas atlas) {
         animation = new Animation<>(0.1f, atlas.findRegions("Armature_Idle"), Animation.PlayMode.LOOP);
         stateTime = 0f;
@@ -84,7 +93,7 @@ public class Spieler extends SpielObjekt{
     public void update(float delta){
         stateTime += delta;
         //setOrigin(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        setPosition(b2body.getPosition().x - getWidth() / 2 + 10, b2body.getPosition().y - getHeight() / 2 + 19);
+        setPosition(b2body.getPosition().x - getWidth() / 2 + 10, b2body.getPosition().y - getHeight() / 2 + 17);
         currentState = getState();
     }
 
@@ -115,7 +124,7 @@ public class Spieler extends SpielObjekt{
 
     public void jump(){
         if (currentState != State.JUMPING ) {
-            b2body.applyLinearImpulse(new Vector2(0, 100f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(0, 90f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }
     }
