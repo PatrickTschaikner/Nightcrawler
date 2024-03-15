@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 
@@ -25,11 +26,18 @@ public class Spieler extends SpielObjekt{
     private MyGdxGame game;
     public World world;
     public Body b2body;
-    public enum State {FALLING, JUMPING, STANDING, RUNNING};
-
+    public enum State {FALLING, JUMPING, STANDING, RUNNING, DEAD};
+    public State currentState;
+    public State previousState;
+    public float stateTimer;
+    private boolean marioIsDead;
     public Spieler(int x, int y, TextureAtlas atlas, World world, MyGdxGame game) {
         super(x, y, atlas.findRegion("Armature_Idle").getTexture());
         generateAnimation(atlas);
+
+        currentState = State.STANDING;
+        previousState = State.STANDING;
+        stateTimer = 0;
 
         this.world = world;
         defineSpieler();
@@ -48,12 +56,21 @@ public class Spieler extends SpielObjekt{
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(6 / game.PPM);
+        PolygonShape shape = new PolygonShape();
+
+        // Define the vertices of the polygon (in meters)
+        float[] vertices = new float[] {
+                -6 / game.PPM, -8 / game.PPM,
+                -6 / game.PPM, 8 / game.PPM,
+                6 / game.PPM, 8 / game.PPM,
+                6 / game.PPM, -8 / game.PPM
+        };
+        shape.set(vertices);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
     }
+
     private void generateAnimation(TextureAtlas atlas) {
         animation = new Animation<>(0.1f, atlas.findRegions("Armature_Idle"), Animation.PlayMode.LOOP);
         stateTime = 0f;
@@ -76,7 +93,8 @@ public class Spieler extends SpielObjekt{
     public void update(float delta){
         stateTime += delta;
         //setOrigin(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        setPosition(b2body.getPosition().x - getWidth() / 2 + 10, b2body.getPosition().y - getHeight() / 2 + 19);
+        setPosition(b2body.getPosition().x - getWidth() / 2 + 10, b2body.getPosition().y - getHeight() / 2 + 17);
+        currentState = getState();
     }
 
     public void act(float delta){
@@ -86,6 +104,29 @@ public class Spieler extends SpielObjekt{
 
     public float getStateTime() {
         return stateTime;
+    }
+
+    public State getState(){
+        if(marioIsDead)
+            return State.DEAD;
+        else if((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+            return State.JUMPING;
+            //if negative in Y-Axis mario is falling
+        else if(b2body.getLinearVelocity().y < 0)
+            return State.FALLING;
+            //if mario is positive or negative in the X axis he is running
+        else if(b2body.getLinearVelocity().x != 0)
+            return State.RUNNING;
+            //if none of these return then he must be standing
+        else
+            return State.STANDING;
+    }
+
+    public void jump(){
+        if (currentState != State.JUMPING ) {
+            b2body.applyLinearImpulse(new Vector2(0, 90f), b2body.getWorldCenter(), true);
+            currentState = State.JUMPING;
+        }
     }
 
     public void setStateTime(float stateTime) {

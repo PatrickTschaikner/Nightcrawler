@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
         stage = new Stage(viewport);
 
 
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, -150), true);
         b2dr = new Box2DDebugRenderer();
 
         new B2World(world, map, game);
@@ -73,13 +73,19 @@ public class PlayScreen implements Screen {
     public void handleInput(float dt){
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-            spieler.b2body.applyLinearImpulse(new Vector2(0, 10f), spieler.b2body.getWorldCenter(), true);
+            spieler.jump();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && spieler.b2body.getLinearVelocity().x <= 2)
+            spieler.b2body.applyLinearImpulse(new Vector2(0.1f, 0), spieler.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && spieler.b2body.getLinearVelocity().x >= -2)
+            spieler.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), spieler.b2body.getWorldCenter(), true);
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
-            spieler.b2body.applyForceToCenter(1000, 0, true);
+            spieler.b2body.applyForceToCenter(5000, 0, true);
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2)
-            spieler.b2body.applyForceToCenter(-1000, 0, true);
+            spieler.b2body.applyForceToCenter(-5000, 0, true);
 
 
         /*if(Gdx.input.isKeyPressed(Input.Keys.D))
