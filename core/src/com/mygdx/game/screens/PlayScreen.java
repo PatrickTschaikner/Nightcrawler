@@ -77,19 +77,23 @@ public class PlayScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             spieler.jump();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 1) {
-            spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
-        }
+
 
         if(!flying) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -1) {
+                spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 1) {
+                spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
+            }
+
             if(!Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)) {
                 spieler.b2body.setLinearVelocity(new Vector2(0, 0));
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -1) {
-            spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
-        }
+
 
         /*if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
             spieler.b2body.applyForceToCenter(5000, 0, true);
