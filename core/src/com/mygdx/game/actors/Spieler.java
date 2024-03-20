@@ -54,6 +54,7 @@ public class Spieler extends SpielObjekt{
         bdef.position.set(32 / game.PPM, 32 / game.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
+        b2body.setLinearDamping(0.1f);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();

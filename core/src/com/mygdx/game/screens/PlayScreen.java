@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Tools.B2World;
@@ -75,17 +76,17 @@ public class PlayScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             spieler.jump();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && spieler.b2body.getLinearVelocity().x <= 2)
-            spieler.b2body.applyLinearImpulse(new Vector2(0.1f, 0), spieler.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && spieler.b2body.getLinearVelocity().x >= -2)
-            spieler.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), spieler.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
+            spieler.b2body.applyLinearImpulse(new Vector2(10f, 0), spieler.b2body.getWorldCenter(), true);
 
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2)
+            spieler.b2body.applyLinearImpulse(new Vector2(-10.0f, 0), spieler.b2body.getWorldCenter(), true);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
+        /*if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
             spieler.b2body.applyForceToCenter(5000, 0, true);
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2)
-            spieler.b2body.applyForceToCenter(-5000, 0, true);
+            spieler.b2body.applyForceToCenter(-5000, 0, true);*/
 
 
         /*if(Gdx.input.isKeyPressed(Input.Keys.D))
@@ -114,7 +115,12 @@ public class PlayScreen implements Screen {
 
             spieler.update(dt);
 
-            camera.position.x = spieler.b2body.getPosition().x;
+            hud.update(dt);
+
+            if(spieler.currentState != Spieler.State.DEAD) {
+                camera.position.x = spieler.b2body.getPosition().x;
+            }
+
             camera.update();
             renderer.setView(camera);
         }
