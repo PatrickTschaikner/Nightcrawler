@@ -15,6 +15,7 @@ public class MyGdxGame extends Game {
 	public static final float PPM = 1;
 	public static Music music;
 	public static Music music2;
+	public static Music music3;
 
 	static public Skin gameSkin;
 
@@ -35,6 +36,12 @@ public class MyGdxGame extends Game {
 			MyGdxGame.music2.setLooping(true);
 			MyGdxGame.music2.setVolume(0f);
 			MyGdxGame.music2.play();
+
+			MyGdxGame.music3 = Gdx.audio.newMusic(Gdx.files.internal("Sounds/Travis_Scott/Maria Im Drunk ft Justin Bieber  Young Thug Instrumental.mp3"));
+			MyGdxGame.music3.setLooping(true);
+			MyGdxGame.music3.setVolume(0f);
+			MyGdxGame.music3.play();
+			MyGdxGame.music3.pause();
 
 		batch = new SpriteBatch();
 
