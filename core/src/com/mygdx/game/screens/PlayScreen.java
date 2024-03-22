@@ -42,6 +42,8 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private int jumper;
+    private float acceleration = 1000;
+    private float gameTime =0;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -87,7 +89,8 @@ public class PlayScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2) {
-            spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
+            System.out.println("speed" + acceleration);
+            spieler.b2body.applyLinearImpulse(new Vector2(acceleration, 0), spieler.b2body.getWorldCenter(), true);
         }
 
 
@@ -99,6 +102,7 @@ public class PlayScreen implements Screen {
 
     public void update(float dt) {
         if (game.isGameState()) {
+            gameTime = gameTime + dt;
             handleInput(dt);
 
             world.step(1/60f, 6, 2);
@@ -114,7 +118,7 @@ public class PlayScreen implements Screen {
             camera.update();
             renderer.setView(camera);
 
-            System.out.println("flying:" + flying);
+            //System.out.println("flying:" + flying);
 
             if(isPlayerOnGround()) {
                 flying = false;
@@ -167,6 +171,10 @@ public class PlayScreen implements Screen {
         // Render HUD
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        if(acceleration < 3500){
+            acceleration += acceleration / 2;
+        };
     }
 
     public void tod() {
