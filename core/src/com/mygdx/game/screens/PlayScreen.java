@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.MyGdxGame;
@@ -40,6 +41,7 @@ public class PlayScreen implements Screen {
     private boolean flying = false;
     private World world;
     private Box2DDebugRenderer b2dr;
+    private int jumper;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -74,18 +76,20 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float dt){
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            spieler.jump();
+        if(jumper == 0) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                spieler.jump();
+            }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -1) {
-            spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -100) {
+            //spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 1) {
-            spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
-
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 100) {
+            //spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
         }
+
 
         if(!flying && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 spieler.b2body.setLinearVelocity(new Vector2(0, 0));
@@ -114,15 +118,14 @@ public class PlayScreen implements Screen {
 
             if(isPlayerOnGround()) {
                 flying = false;
+                jumper = 0;
             } else{
-                flying = true;
-            }
-            /*
-            else {
+                jumper = 1;
                 flying = true;
             }
 
-             */
+            //Tod des Spielers
+            tod();
         }
     }
 
@@ -165,6 +168,18 @@ public class PlayScreen implements Screen {
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
+
+    public void tod() {
+        if (spieler.getY() < -1) {
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    game.setScreen(new TitleScreen(game));
+                }
+            }, 1); // 1 Sekunden Verzögerung
+        }
+    }
+
 
     @Override
     public void resize(int width, int height) {
