@@ -83,11 +83,11 @@ public class PlayScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2) {
-            //spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+            spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2) {
-            //spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
+            spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
         }
 
 
