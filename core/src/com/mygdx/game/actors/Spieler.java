@@ -31,6 +31,7 @@ public class Spieler extends SpielObjekt{
     public State previousState;
     public float stateTimer;
     private boolean marioIsDead;
+
     public Spieler(int x, int y, TextureAtlas atlas, World world, MyGdxGame game) {
         super(x, y, atlas.findRegion("Armature_Idle").getTexture());
         generateAnimation(atlas);
@@ -82,13 +83,24 @@ public class Spieler extends SpielObjekt{
     }
 
     public void setBoundary(){
-        this.boundary.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        this.boundary.set(this.getX() + 10, this.getY() - 1, (this.getWidth() - 23) * 0.4f, this.getHeight() * 0.4f);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        setBoundary();
         TextureRegion currentFrame = animation.getKeyFrame(stateTime);
         batch.draw(currentFrame, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), 0.4f, 0.4f, getRotation());
+
+        batch.end();
+
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.rect(boundary.x, boundary.y, boundary.width, boundary.height);
+        shapeRenderer.end();
+        batch.begin();
     }
 
     public void update(float delta){
@@ -141,4 +153,6 @@ public class Spieler extends SpielObjekt{
             return false;
         }
     }
+
+
 }

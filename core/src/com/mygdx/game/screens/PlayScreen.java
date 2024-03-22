@@ -12,12 +12,14 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.MyGdxGame;
@@ -37,9 +39,9 @@ public class PlayScreen implements Screen {
     private Stage stage;
     private Spieler spieler;
     private boolean flying = false;
-
     private World world;
     private Box2DDebugRenderer b2dr;
+    private int jumper;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -74,50 +76,25 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float dt){
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-            spieler.jump();
-
-
-
-        if(!flying) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -1) {
-                spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+        if(jumper == 0) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                spieler.jump();
             }
+        }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 1) {
-                spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
-            }
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2) {
+            //spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+        }
 
-            if(!Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2) {
+            //spieler.b2body.applyLinearImpulse(new Vector2(1000f, 0), spieler.b2body.getWorldCenter(), true);
+        }
+
+
+        if(!flying && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 spieler.b2body.setLinearVelocity(new Vector2(0, 0));
-            }
         }
-
-
-
-        /*if(Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2)
-            spieler.b2body.applyForceToCenter(5000, 0, true);
-
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2)
-            spieler.b2body.applyForceToCenter(-5000, 0, true);*/
-
-
-        /*if(Gdx.input.isKeyPressed(Input.Keys.D))
-            camera.position.x += 100 * dt;
-
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && camera.position.x > MyGdxGame.WORLD_WIDTH / 2 +1)
-            camera.position.x += 100 * -dt;
-        */
-
         float delta = Gdx.graphics.getDeltaTime();
-
-        //update
-        /*if(spieler.getX() > 0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) spieler.move(1);
-        }
-        if(spieler.getX() < 3000) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) spieler.move(0);
-        }*/
     }
 
     public void update(float dt) {
@@ -137,11 +114,18 @@ public class PlayScreen implements Screen {
             camera.update();
             renderer.setView(camera);
 
+            System.out.println("flying:" + flying);
+
             if(isPlayerOnGround()) {
                 flying = false;
-            } else {
+                jumper = 0;
+            } else{
+                jumper = 1;
                 flying = true;
             }
+
+            //Tod des Spielers
+            tod();
         }
     }
 
@@ -151,10 +135,10 @@ public class PlayScreen implements Screen {
 
         // Iteriere über alle MapObjects in der Boden-Layer der Karte
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle groundBounds = ((RectangleMapObject) object).getRectangle();
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             // Überprüfe, ob der Spieler mit dem Boden kollidiert
-            if(playerBounds.overlaps(groundBounds)) {
+            if(Intersector.overlaps(playerBounds, rect)){
                 return true;
             }
         }
@@ -184,6 +168,18 @@ public class PlayScreen implements Screen {
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
+
+    public void tod() {
+        if (spieler.getY() < -1) {
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    game.setScreen(new TitleScreen(game));
+                }
+            }, 1); // 1 Sekunden Verzögerung
+        }
+    }
+
 
     @Override
     public void resize(int width, int height) {
