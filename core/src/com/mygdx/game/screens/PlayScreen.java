@@ -61,7 +61,7 @@ public class PlayScreen implements Screen {
         stage = new Stage(viewport);
 
 
-        world = new World(new Vector2(0, -160), true);
+        world = new World(new Vector2(0, -200), true);
         b2dr = new Box2DDebugRenderer();
 
         new B2World(world, map, game);
@@ -84,13 +84,14 @@ public class PlayScreen implements Screen {
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -2) {
-            spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
-        }
+        if(!flying) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) && spieler.b2body.getLinearVelocity().x >= -20) {
+                spieler.b2body.applyLinearImpulse(new Vector2(-1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 2) {
-            System.out.println("speed" + acceleration);
-            spieler.b2body.applyLinearImpulse(new Vector2(acceleration, 0), spieler.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.D) && spieler.b2body.getLinearVelocity().x <= 20) {
+                spieler.b2body.applyLinearImpulse(new Vector2(1000.0f, 0), spieler.b2body.getWorldCenter(), true);
+            }
         }
 
 
@@ -103,6 +104,7 @@ public class PlayScreen implements Screen {
     public void update(float dt) {
         if (game.isGameState()) {
             gameTime = gameTime + dt;
+            System.out.println("time:" + gameTime);
             handleInput(dt);
 
             world.step(1/60f, 6, 2);
@@ -172,7 +174,7 @@ public class PlayScreen implements Screen {
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        if(acceleration < 3500){
+        if(acceleration < 2000){
             acceleration += acceleration / 2;
         };
     }
